@@ -70,7 +70,7 @@ Connection cnxr = ConexionBD.getConexion();
                     <a href="ServletReunion?accion=vincularParticipante&idReunion=<%=idReunion%>&idUsuario=<%=rs.getInt("ID_Usuario")%>&correo=<%=rs.getString("correo")%>&coordinador=<%=usuu%>&usuario=<%=rs.getString("nombre")%>&nombreR=<%=nomReunion%>&lugarR=<%=lugar%>&fecha=<%=fecha%>&hora=<%=hora%>&objetivos=<%=objetivos%>">
                         <img src="Iconos/nuevoParticipante.png" width="30" heigth="30">
                     </a>
-                    <a href="ServletReunion?accion=desvincularParticipante&idReunion=<%=idReunion%>&idUsuario=<%=rs.getInt("ID_Usuario")%>">
+                    <a href="ServletReunion?accion=desvincularParticipante&idReunion=<%=idReunion%>&idUsuario=<%=rs.getInt("ID_Usuario")%>&correo=<%=rs.getString("correo")%>&coordinador=<%=usuu%>&usuario=<%=rs.getString("nombre")%>&nombreR=<%=nomReunion%>&lugarR=<%=lugar%>&fecha=<%=fecha%>&hora=<%=hora%>&objetivos=<%=objetivos%>">
                         <img src="Iconos/desvincularParticipante.png" width="30" heigth="30">
                     </a>
                 </th>

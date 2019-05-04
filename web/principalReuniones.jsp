@@ -65,6 +65,11 @@
                         <img src="Iconos/subirArchivo.png" width="70" height="70">
                     </a><p>Subir archivos</p>
                 </th>
+                <th>
+                    <a href="reunionesInvitado.jsp">
+                        <img src="Iconos/listaReuniones.png" width="70" height="70">
+                    </a><p>Lista invitaciones</p>
+                </th>
             </tr>
     </table>
     <br><br><br>

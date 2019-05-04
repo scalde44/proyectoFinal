@@ -54,6 +54,15 @@ public class ServletReunion extends HttpServlet {
         return rs;
         
     }
+    public ResultSet mostrarUsuario(String correo) throws SQLException{
+        Connection cnxr = ConexionBD.getConexion();
+
+        PreparedStatement sta = cnxr.prepareStatement("select * from usuarios where correo=?");
+        sta.setString(1, correo);
+        ResultSet rs = sta.executeQuery();
+        return rs;
+        
+    }
     public ResultSet mostrar() throws SQLException {
         Connection cnxr = ConexionBD.getConexion();
 
@@ -67,6 +76,15 @@ public class ServletReunion extends HttpServlet {
 
         PreparedStatement sta = cnxr.prepareStatement("select * from reunion where ID_Reunion=?");
         sta.setInt(1, idReunion);
+        ResultSet rs = sta.executeQuery();
+        return rs;
+
+    }
+    public ResultSet mostrarDatosReunion2(int idUser) throws SQLException {
+        Connection cnxr = ConexionBD.getConexion();
+
+        PreparedStatement sta = cnxr.prepareStatement("select * from participantes where ID_Usuario=?");
+        sta.setInt(1, idUser);
         ResultSet rs = sta.executeQuery();
         return rs;
 
@@ -128,7 +146,7 @@ public class ServletReunion extends HttpServlet {
             String horaString = request.getParameter("txtHora");
             String estado = "Activa";
             //  Castear Fecha
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date parsed = format.parse(fechaString);
             java.sql.Date fecha = new java.sql.Date(parsed.getTime());
             //  Castear Hora
@@ -197,7 +215,7 @@ public class ServletReunion extends HttpServlet {
                 
                 if(rs.next()){
                     request.setAttribute("msg", "Usuario Ya vinculado");
-                request.getRequestDispatcher("participantes.jsp?idReunion="+idReunion+"").forward(request, response);
+                request.getRequestDispatcher("participantes.jsp?idReunion="+idReunion+"&nombre="+nomReunion+"&lugar="+lugarR+"&fecha="+fechaR+"&hora="+horaR+"&objetivos="+objetivosR).forward(request, response);
                 }else{
             try {
                 PreparedStatement staEl = cnxr.prepareStatement("insert into participantes(ID_Reunion,ID_Usuario)"
@@ -210,7 +228,7 @@ public class ServletReunion extends HttpServlet {
                 ms.mensaje("Invitado: "+invitado+"\n Reunion: "+nomReunion+"\n Lugar: "+lugarR+"\n Fecha: "+fechaR+"\n Hora: "+horaR+"\n Objetivos: "+objetivosR);
                 ms.SendMail();
                 request.setAttribute("msg", "Usuario vinculado");
-                request.getRequestDispatcher("participantes.jsp?idReunion="+idReunion).forward(request, response);
+                request.getRequestDispatcher("participantes.jsp?idReunion="+idReunion+"&nombre="+nomReunion+"&lugar="+lugarR+"&fecha="+fechaR+"&hora="+horaR+"&objetivos="+objetivosR).forward(request, response);
             } catch (Exception e) {
                  request.setAttribute("msg", e);
                 request.getRequestDispatcher("participantes.jsp?idReunion="+idReunion).forward(request, response);
@@ -220,6 +238,14 @@ public class ServletReunion extends HttpServlet {
         else if (accion.equalsIgnoreCase("desvincularParticipante")) {
             int idReunion = Integer.parseInt(request.getParameter("idReunion"));
             int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+            String correo= request.getParameter("correo");
+            String coordinador=request.getParameter("coordinador");
+            String invitado=request.getParameter("usuario");
+            String nomReunion=request.getParameter("nombreR");
+            String lugarR=request.getParameter("lugarR");
+            String fechaR=request.getParameter("fecha");
+            String horaR=request.getParameter("hora");
+            String objetivosR=request.getParameter("objetivos");
             PreparedStatement sta=cnxr.prepareStatement("select * from participantes where ID_Reunion=? and ID_Usuario=?");
             sta.setInt(1, idReunion);
                 sta.setInt(2, idUsuario);
@@ -231,12 +257,12 @@ public class ServletReunion extends HttpServlet {
                 staEl.setInt(2, idUsuario);
                 staEl.executeUpdate();
                 request.setAttribute("msg", "Usuario desvinculado");
-                request.getRequestDispatcher("participantes.jsp?idReunion="+idReunion+"").forward(request, response);
+                request.getRequestDispatcher("participantes.jsp?idReunion="+idReunion+"&nombre="+nomReunion+"&lugar="+lugarR+"&fecha="+fechaR+"&hora="+horaR+"&objetivos="+objetivosR).forward(request, response);
                  
             } catch (Exception e) {
             }}else{
                   request.setAttribute("msg", "Usuario No vinculado todavia");
-                request.getRequestDispatcher("participantes.jsp?idReunion="+idReunion+"").forward(request, response);  
+                request.getRequestDispatcher("participantes.jsp?idReunion="+idReunion+"&nombre="+nomReunion+"&lugar="+lugarR+"&fecha="+fechaR+"&hora="+horaR+"&objetivos="+objetivosR).forward(request, response);  
                 }
         }
     }

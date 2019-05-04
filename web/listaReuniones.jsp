@@ -5,7 +5,7 @@
 <%@page import="UsuarioBEANS.Reuniones"%>
 <%
     String usu = "";
-    String usuu="";
+    String usuu = "";
     HttpSession sesionOk = request.getSession();
     if (sesionOk.getAttribute("usuario") == null) {
 %>
@@ -19,9 +19,9 @@
         PreparedStatement sta = cnxr.prepareStatement("select * from usuarios where correo=?");
         sta.setString(1, usu);
         ResultSet rs = sta.executeQuery();
-        if(rs.next()){
-        usuu=rs.getString("nombre");
-}
+        if (rs.next()) {
+            usuu = rs.getString("nombre");
+        }
     }
 %>
 
@@ -72,9 +72,15 @@
                 <th><%=r.getHoraReunion()%></th>
                 <th><%=r.getEstado()%></th>
                 <th>
+                    <%if (r.getEstado().equalsIgnoreCase("Activa")) {%>
                     <a href="participantes.jsp?idReunion=<%=r.getID_Reunion()%>&nombre=<%=r.getNombreReunion()%>&lugar=<%=rs.getString("nombreLugar")%>&fecha=<%=r.getFechaReunion()%>&hora=<%=r.getHoraReunion()%>&objetivos=<%=r.getObjetivosReunion()%>">
                         <img src="Iconos/participantes.png" width="30" heigth="30">
                     </a>
+                    <%} else {%>
+                    <a href="ServletReunion?accion=listar&usuario=<%=usuu%>">
+                        <img src="Iconos/participantes.png" width="30" heigth="30">
+                    </a>
+                        <%}%>
                 </th>
                 <th>
                     <a href="ServletReunion?accion=desactivarReunion&idReunion=<%=r.getID_Reunion()%>&usuario=<%=usuu%>">
@@ -85,9 +91,15 @@
                     </a>
                 </th>
                 <th>
+                    <%if (r.getEstado().equalsIgnoreCase("Activa")) {%>
                     <a href="actaReunion.jsp?idReunion=<%=r.getID_Reunion()%>">
                         <img src="Iconos/iniciar.png" width="30" heigth="30">
                     </a>
+                    <%} else {%>
+                    <a href="ServletReunion?accion=listar&usuario=<%=usuu%>">
+                        <img src="Iconos/iniciar.png" width="30" heigth="30">
+                    </a>
+                        <%}%>
                 </th>
 
 
