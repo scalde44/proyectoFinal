@@ -55,7 +55,7 @@ public class ServletLogin extends HttpServlet {
         MailSender ms=new MailSender();
         String correo = request.getParameter("txtCorreo");
         Connection cnx = ConexionBD.getConexion();
-        String contrasenaTemporal=String.valueOf((int)100000000*Math.random());
+        String contrasenaTemporal="contra"+(int) (Math.random() * 10000) + 1;
         String contrasenaEncriptada = DigestUtils.md5Hex(contrasenaTemporal);
         try {
             PreparedStatement sta = cnx.prepareStatement("select * from usuarios where correo=?");
