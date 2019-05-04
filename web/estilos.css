@@ -1,0 +1,319 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29/03/2019, 05:15:18 PM
+    Author     : steve
+*/
+/*Login*/
+h1 {
+ width: 300px;
+    padding: 40px;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Comic Sans MS';
+}
+.bax{
+    width: 300px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+.login {
+    width: 300px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%,-50%);
+    background: #34495e;
+    text-align: center;
+}
+.login h2{
+    color:white;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.login   h4{
+    color:white;
+    text-transform: uppercase;
+    font-weight: 100;
+}
+.login input[type="email"],.login input[type="password"]{
+    border: 0;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid blue;
+    padding: 14px 10px;
+    width:200px;
+    outline: none;
+    color: black ;
+    border-radius: 24px;
+    transition: 0.25s;   
+}
+.login input[type="email"]:focus,.login input[type="password"]:focus{
+    width: 280px;
+    border-color: blue;
+    
+}
+.login input[type="submit"]{
+    border: 0;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid aqua;
+    padding: 14px 40px;
+    width:200px;
+    outline: none;
+    color: black;
+    border-radius: 24px;
+    transition: 0.25s; 
+    cursor: pointer;
+}
+.login input[type="submit"]:hover{
+    background: #2ecc71;
+}
+/*Principal*/
+h3{
+    width: 300px;
+    padding: 40px;
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    font-weight: 500;
+    font-size: 45px;
+}
+/*Consulta*/
+.consulta {
+    width: 300px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%,-50%);
+    background: #34495e;
+    text-align: center;
+}
+.consulta h2{
+    color:white;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: center;
+}
+.consulta input[type="text"]{
+    border: 0;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid blue;
+    padding: 14px 10px;
+    width:200px;
+    outline: none;
+    color: black ;
+    border-radius: 24px;
+    transition: 0.25s;   
+}
+.consulta input[type="submit"]{
+    border: 0;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid aqua;
+    padding: 14px 40px;
+    width:200px;
+    outline: none;
+    color: black;
+    border-radius: 24px;
+    transition: 0.25s; 
+    cursor: pointer;
+}
+.consulta input[type="text"]:focus{
+     width: 280px;
+    border-color: blue;
+    
+}
+.consulta input[type="submit"]:hover{
+    background: #2ecc71;
+}
+/*Regresar*/
+regresar{
+    padding: 10px;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    font-weight: 500;
+    font-size: 35px;
+}
+/*Insertar*/
+.insertar{
+    width: 300px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%,-50%);
+    background: #34495e;
+    text-align: center;
+}
+.insertar input[type="email"],.insertar input[type="password"],.insertar input[type="text"]{
+    border: 0;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid blue;
+    padding: 14px 10px;
+    width:200px;
+    outline: none;
+    color: black ;
+    border-radius: 24px;
+    transition: 0.25s;   
+}
+.insertar input[type="email"]:focus,.insertar input[type="password"]:focus,.insertar input[type="text"]:focus{
+    width: 280px;
+    border-color: blue;
+}
+.insertar input[type="submit"]{
+    border: 0;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid aqua;
+    padding: 14px 40px;
+    width:200px;
+    outline: none;
+    color: black;
+    border-radius: 24px;
+    transition: 0.25s; 
+    cursor: pointer;
+}
+.insertar input[type="submit"]:hover{
+    background: #2ecc71;
+}
+.insertar h4{
+    color:white;
+    text-transform: uppercase;
+    font-weight: 100;
+}
+inse{
+    width: 300px;
+    padding: 40px;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    font-size: 25px;
+}
+/*Reunion*/
+.reunion{
+    width: 600px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%,-50%);
+    background: #34495e;
+    text-align: center;
+}
+.reunion input[type="text"],.reunion input[type="date"],.reunion select,.reunion input[type="time"]{
+    border: 0;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid blue;
+    padding: 14px 10px;
+    width:200px;
+    outline: none;
+    color: black ;
+    border-radius: 24px;
+    transition: 0.25s; 
+}
+.reunion input[type="submit"]{
+    border: 0;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid aqua;
+    padding: 14px 40px;
+    width:200px;
+    outline: none;
+    color: black;
+    border-radius: 24px;
+    transition: 0.25s; 
+    cursor: pointer;
+}
+.reunion input[type="submit"]:hover{
+    background: #2ecc71;
+}
+.reunion .checkbox label {
+    display: inline-block;
+    cursor: pointer;
+    color: white ;
+    position: relative;
+    padding: 5px 15px 5px 51px;
+    font-size: 1em;
+    border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease; }
+.reunion .checkbox label:hover {
+      background: blue; }
+.reunion .checkbox label:before {
+      content: "";
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      position: absolute;
+      left: 15px;
+      border-radius: 50%;
+      background: none;
+      border: 3px solid white; }
+.reunion .checkbox label:before {
+    border-radius: 3px; }
+  .reunion .checkbox input[type="checkbox"] {
+    display: none;
+    }
+    .reunion .checkbox input[type="checkbox"]:checked + label:before {
+      display: none; }
+    .reunion .checkbox input[type="checkbox"]:checked + label {
+      background: blue ;
+      color: #fff;
+      padding: 5px 15px; }
+.reunion h4{
+    color:white;
+    text-transform: uppercase;
+    font-weight: 100;
+}
+.reunion input[type="text"]:focus,.reunion input[type="date"]:focus,.reunion select:focus,.reunion input[type="time"]:focus{
+    width: 280px;
+    border-color: blue;
+}
+/*Regresarse*/
+regresarse{
+    width: 10px;
+    padding: 40px;
+    position: absolute;
+    top: 80%;
+    left: 28%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+

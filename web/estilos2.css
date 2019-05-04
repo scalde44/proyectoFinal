@@ -1,0 +1,56 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30/03/2019, 12:53:42 PM
+    Author     : steve
+*/
+
+.archivos{
+    width: 400px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%,-50%);
+    background: #34495e;
+    text-align: center;
+}
+.archivos input[type="submit"]{
+    border: 0;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid aqua;
+    padding: 14px 40px;
+    width:200px;
+    outline: none;
+    color: black;
+    border-radius: 24px;
+    transition: 0.25s; 
+    cursor: pointer;
+}
+.archivos input[type="submit"]:hover{
+    background: #2ecc71;
+}
+.archivos input[type="file"]{
+    border: 0;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid blue;
+    padding: 14px 10px;
+    width:320px;
+    outline: none;
+    color: white ;
+    border-radius: 24px;
+    transition: 0.25s; 
+    cursor: pointer;
+}
+.insertar h4{
+    color:white;
+    font-weight: 100;
+
+}
