@@ -32,17 +32,21 @@
     <a href="principalReuniones.jsp">
         <regresarse>Regresar</regresarse>
     </a>
-    <form action="ServletReunion" enctype="multipart/form-data" target="_blank" class="archivos">
+    <form action="ServletArchivos" enctype="multipart/form-data" method="post" class="archivos">
 
 
 
         <font color="white">SELECCIONA UN ARCHIVO:</font>
-            <input type="file" name="archivoSubido">
-            <input type="submit" name="btnSubir" value="Subir Archivo">
-            <input type="hidden" name="accion" value="subir">
+        <input type="file" name="archivoSubido">
+        <input type="submit" name="btnSubir" value="Subir">
+        <input type="hidden" name="accion" value="subir">
+        <%
+            if (request.getAttribute("msg1") != null) {
+        %><h4><font color="white"><%out.println(request.getAttribute("msg1"));%></font></h4><%
+            }
+        %>
 
 
-
-            </form>
-            </body>
-            </html>
+    </form>
+</body>
+</html>

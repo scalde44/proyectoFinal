@@ -153,6 +153,14 @@ public class ServletReunion extends HttpServlet {
             DateFormat formatter = new SimpleDateFormat("HH:mm");
             java.sql.Time hora = new java.sql.Time(formatter.parse(horaString).getTime());
             //
+            PreparedStatement sta1=cnxr.prepareStatement("select * from reunion where fechaReunion=? and horaReunion=?");
+            sta1.setDate(1, fecha);
+            sta1.setTime(2, hora);
+            ResultSet rss= sta1.executeQuery();
+            if(rss.next()){
+                request.setAttribute("msg", "Reunion ya creada a esa hora y en esa fecha");
+                request.getRequestDispatcher("nuevaReunion.jsp").forward(request, response);
+            }else{
             try {
 
                 PreparedStatement sta = cnxr.prepareStatement("insert into reunion"
@@ -171,7 +179,7 @@ public class ServletReunion extends HttpServlet {
                 request.getRequestDispatcher("nuevaReunion.jsp").forward(request, response);
             }
 
-        } else if (accion.equalsIgnoreCase("desactivarReunion")) {
+        } }else if (accion.equalsIgnoreCase("desactivarReunion")) {
             String coordinador=request.getParameter("usuario");
             int idReunion = Integer.parseInt(request.getParameter("idReunion"));
             String estado= "Inactiva";

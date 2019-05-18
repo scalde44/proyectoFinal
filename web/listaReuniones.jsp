@@ -77,9 +77,7 @@
                         <img src="Iconos/participantes.png" width="30" heigth="30">
                     </a>
                     <%} else {%>
-                    <a href="ServletReunion?accion=listar&usuario=<%=usuu%>">
                         <img src="Iconos/participantes.png" width="30" heigth="30">
-                    </a>
                         <%}%>
                 </th>
                 <th>
@@ -96,9 +94,7 @@
                         <img src="Iconos/iniciar.png" width="30" heigth="30">
                     </a>
                     <%} else {%>
-                    <a href="ServletReunion?accion=listar&usuario=<%=usuu%>">
                         <img src="Iconos/iniciar.png" width="30" heigth="30">
-                    </a>
                         <%}%>
                 </th>
 
