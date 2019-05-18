@@ -49,7 +49,7 @@
                 <th><%=u.getEstado()%></th>
                 <th>
 
-                    
+
                     <a href="ServletMantenimiento?accion=desactivar&id=<%=u.getID_Usuario()%>">
                         <image src="Iconos/desactivar.png" width="30" heigth="30">
                     </a>

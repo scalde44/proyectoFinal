@@ -55,7 +55,7 @@
                 ResultSet rs1 = sta.executeQuery();
                 PreparedStatement sta1 = null;
                 PreparedStatement sta2 = null;
-                ResultSet rs2=null;
+                ResultSet rs2 = null;
                 if (rs1.next()) {
                     sta1 = cnxr.prepareStatement("select * from participantes where ID_Usuario=?");
                     sta1.setInt(1, rs1.getInt("ID_Usuario"));
@@ -65,8 +65,8 @@
                     sta2 = cnxr.prepareStatement("select * from reunion where ID_Reunion=?");
                     sta2.setInt(1, rs.getInt("ID_Reunion"));
                     rs2 = sta2.executeQuery();
-                    
-                if (rs2.next()) {
+
+                    if (rs2.next()) {
             %>
             <tr>
                 <th><%=rs2.getString("coordinadorReunion")%></th>
@@ -76,12 +76,14 @@
                 <th><%=rs2.getString("fechaReunion")%></th>
                 <th><%=rs2.getString("horaReunion")%></th>
             </tr>
-            <%}}%>
+            <%}
+                }
+                rs.close();%>
         </table>
-        <center>
+    <center>
         <a href="principalReuniones.jsp">
             <regresar>Regresar</regresar>
         </a>
     </center>
-    </body>
+</body>
 </html>

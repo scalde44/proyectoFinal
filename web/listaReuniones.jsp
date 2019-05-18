@@ -77,8 +77,8 @@
                         <img src="Iconos/participantes.png" width="30" heigth="30">
                     </a>
                     <%} else {%>
-                        <img src="Iconos/participantes.png" width="30" heigth="30">
-                        <%}%>
+                    <img src="Iconos/participantes.png" width="30" heigth="30">
+                    <%}%>
                 </th>
                 <th>
                     <a href="ServletReunion?accion=desactivarReunion&idReunion=<%=r.getID_Reunion()%>&usuario=<%=usuu%>">
@@ -90,18 +90,20 @@
                 </th>
                 <th>
                     <%if (r.getEstado().equalsIgnoreCase("Activa")) {%>
-                    <a href="actaReunion.jsp?idReunion=<%=r.getID_Reunion()%>">
+                    <a href="asistenciaReunion.jsp?idReunion=<%=r.getID_Reunion()%>">
                         <img src="Iconos/iniciar.png" width="30" heigth="30">
                     </a>
                     <%} else {%>
-                        <img src="Iconos/iniciar.png" width="30" heigth="30">
-                        <%}%>
+                    <img src="Iconos/iniciar.png" width="30" heigth="30">
+                    <%}%>
                 </th>
 
 
             </tr>
             <%
                     }
+
+                    rs.close();
                 }
             %>
         </table>

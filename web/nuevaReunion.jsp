@@ -5,7 +5,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%
     String usu = "";
-    String usuu="";
+    String usuu = "";
     HttpSession sesionOk = request.getSession();
     if (sesionOk.getAttribute("usuario") == null) {
 %>
@@ -19,9 +19,9 @@
         PreparedStatement sta = cnxr.prepareStatement("select * from usuarios where correo=?");
         sta.setString(1, usu);
         ResultSet rs = sta.executeQuery();
-        if(rs.next()){
-        usuu=rs.getString("nombre");
-}
+        if (rs.next()) {
+            usuu = rs.getString("nombre");
+        }
     }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -54,18 +54,18 @@
         <jsp:useBean id="cn" class="Servlets.ServletReunion" scope="page"></jsp:useBean>
         <%
             ResultSet rs = cn.mostrar();
-            
+
         %>
 
         <select name="txtLugar" required>
-            <%
-                while (rs.next()) {
+            <%                while (rs.next()) {
 
             %>
 
             <option value="<%=rs.getInt("ID_Lugar")%>"><%=rs.getString("nombreLugar")%> </option>
             <%
                 }
+                rs.close();
             %>
         </select>
         <input type="submit" name="btnl" value="Crear Reunion">
@@ -74,7 +74,7 @@
         <%
             if (request.getAttribute("msg") != null) {
         %><h4><%out.println(request.getAttribute("msg"));%></h4><%
-                        }
+            }
         %>
     </form>
 

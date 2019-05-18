@@ -4,7 +4,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%
     String usu = "";
-    String usuu="";
+    String usuu = "";
     HttpSession sesionOk = request.getSession();
     if (sesionOk.getAttribute("usuario") == null) {
 %>
@@ -14,13 +14,13 @@
 <%
     } else {
         usu = (String) sesionOk.getAttribute("usuario");
-Connection cnxr = ConexionBD.getConexion();
+        Connection cnxr = ConexionBD.getConexion();
         PreparedStatement sta = cnxr.prepareStatement("select * from usuarios where correo=?");
         sta.setString(1, usu);
         ResultSet rs = sta.executeQuery();
-        if(rs.next()){
-        usuu=rs.getString("nombre");
-}
+        if (rs.next()) {
+            usuu = rs.getString("nombre");
+        }
     }
 %>
 
@@ -37,11 +37,11 @@ Connection cnxr = ConexionBD.getConexion();
         <h3>PARTICIPANTES</h3>
         <%
             int idReunion = Integer.parseInt(request.getParameter("idReunion"));
-            String nomReunion= request.getParameter("nombre");
-            String lugar= request.getParameter("lugar");
-            String fecha=request.getParameter("fecha");
-            String hora=request.getParameter("hora");
-            String objetivos=request.getParameter("objetivos");
+            String nomReunion = request.getParameter("nombre");
+            String lugar = request.getParameter("lugar");
+            String fecha = request.getParameter("fecha");
+            String hora = request.getParameter("hora");
+            String objetivos = request.getParameter("objetivos");
         %>
         <br><br><br><br><br><br>
         <table border="1"  align="center">
@@ -55,12 +55,11 @@ Connection cnxr = ConexionBD.getConexion();
             <jsp:useBean id="cn" class="Servlets.ServletReunion" scope="page"></jsp:useBean>
 
             <%
-                
                 ResultSet rs = cn.mostrarIDname();
                 while (rs.next()) {
-                ResultSet rs1= cn.participantesEstaReunion(idReunion, rs.getInt("ID_Usuario"));
-                
-                
+                    ResultSet rs1 = cn.participantesEstaReunion(idReunion, rs.getInt("ID_Usuario"));
+
+
             %>
             <tr>
                 <th><font   color="black"><%=rs.getInt("ID_Usuario")%></font></th>
@@ -74,19 +73,24 @@ Connection cnxr = ConexionBD.getConexion();
                         <img src="Iconos/desvincularParticipante.png" width="30" heigth="30">
                     </a>
                 </th>
-                <th><font   color="black"><%if(rs1.next()){out.println("VINCULADO");}else{out.println("NO VINCULADO");}%></font></th>
+                <th><font   color="black"><%if (rs1.next()) {
+                        out.println("VINCULADO");
+                    } else {
+                        out.println("NO VINCULADO");
+                    }%></font></th>
             </tr>
             <%
                 }
+                rs.close();
+
             %>
 
         </table>
-          
+
     <center>
-          <%
-            if (request.getAttribute("msg") != null) {
+        <%              if (request.getAttribute("msg") != null) {
         %><h4><%out.println(request.getAttribute("msg"));%></h4><%
-                        }
+            }
         %>
         <a href="ServletReunion?accion=listar&usuario=<%=usuu%>">
             <regresar>Regresar</regresar>

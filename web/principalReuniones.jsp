@@ -7,7 +7,7 @@
 <%@page session="true"%>
 <%
     String usu = "";
-    String usuu="";
+    String usuu = "";
     HttpSession sesionOk = request.getSession();
     if (sesionOk.getAttribute("usuario") == null) {
 %>
@@ -17,13 +17,13 @@
 <%
     } else {
         usu = (String) sesionOk.getAttribute("usuario");
-         Connection cnxr = ConexionBD.getConexion();
+        Connection cnxr = ConexionBD.getConexion();
         PreparedStatement sta = cnxr.prepareStatement("select * from usuarios where correo=?");
         sta.setString(1, usu);
         ResultSet rs = sta.executeQuery();
-        if(rs.next()){
-        usuu=rs.getString("nombre");
-}
+        if (rs.next()) {
+            usuu = rs.getString("nombre");
+        }
     }
 %>
 <html>
@@ -71,8 +71,14 @@
                     </a><p>Lista invitaciones</p>
                 </th>
             </tr>
-    </table>
-    <br><br><br>
+        </table>
+        <br><br><br>
+    <center>
+        <%              if (request.getAttribute("msg") != null) {
+        %><h4><%out.println(request.getAttribute("msg"));%></h4><%
+            }
+        %>
+    </center>
     <center>
         <a href="SalirLogin.jsp">
             <img src="Iconos/salirLogin.png" width="50" height="50">
