@@ -21,7 +21,8 @@
         ResultSet rs = sta.executeQuery();
         if (rs.next()) {
             usuu = rs.getString("nombre");
-        }rs.close();
+        }
+        rs.close();
     }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -34,19 +35,17 @@
         <title>Meeting Office</title>
     </head>
     <body background="Iconos/fondo1.png">
-        <h3>REUNIONES INVITADO</h3>
+        <h3>MIS COMPROMISOS</h3>
 
         <br><br><br><br><br><br>
         <table border="1"  align="center">
             <tr bgcolor="gray">
-                <th><font   color="black">Coordinador</font></th>
-                <th><font   color="black">Nombre reunion</font></th>
-                <th><font   color="black">Lugar</font></th>
-                <th><font color="black">Objetivos</font></th>
-                <th><font color="black">Fecha</font></th>
-                <th><font color="black">Hora</font></th>
+                <th><font   color="black">ID Compromiso</font></th>
+                <th><font   color="black">Compromiso</font></th>
+                <th><font   color="black">Responsable</font></th>
+                <th><font color="black">ID Reunion</font></th>
                 <th><font color="black">Estado</font></th>
-                <th><font color="black">Compromisos</font></th>
+                <th><font color="black">Acción</font></th>
             </tr>
             <%
                 Connection cnxr = ConexionBD.getConexion();
@@ -55,47 +54,33 @@
                 sta.setString(1, usu);
                 ResultSet rs1 = sta.executeQuery();
                 PreparedStatement sta1 = null;
-                PreparedStatement sta2 = null;
-                PreparedStatement sta3 = null;
-                ResultSet rs2 = null;
-                ResultSet rs3 = null;
                 if (rs1.next()) {
-                    sta1 = cnxr.prepareStatement("select * from participantes where ID_Usuario=?");
+                    sta1 = cnxr.prepareStatement("select * from compromisosReunion where ID_Usuario=?");
                     sta1.setInt(1, rs1.getInt("ID_Usuario"));
                 }
-                ResultSet rs = sta1.executeQuery();
-                while (rs.next()) {
-                    sta2 = cnxr.prepareStatement("select * from reunion where ID_Reunion=?");
-                    sta2.setInt(1, rs.getInt("ID_Reunion"));
-                    rs2 = sta2.executeQuery();
-
-                    if (rs2.next()) {
-                        sta3 = cnxr.prepareStatement("select * from lugar where ID_Lugar=?");
-                        sta3.setInt(1, rs2.getInt("ID_Lugar"));
-                        rs3 = sta3.executeQuery();
-                        if (rs3.next()) {
+                ResultSet rs4 = sta1.executeQuery();
+                while (rs4.next()) {
             %>
             <tr>
-                <th><%=rs2.getString("coordinadorReunion")%></th>
-                <th><%=rs2.getString("nombreReunion")%></th>
-                <th><%=rs3.getString("nombreLugar")%></th>
-                <th><%=rs2.getString("objetivosReunion")%></th>
-                <th><%=rs2.getString("fechaReunion")%></th>
-                <th><%=rs2.getString("horaReunion")%></th>
-                <th><%=rs2.getString("estadoReunion")%></th>
+                <th><%=rs4.getInt(1)%></th>
+                <th><%=rs4.getString(2)%></th>
+                <th><%=usuu%></th>
+                <th><%=rs4.getInt(4)%></th>
+                <th><%=rs4.getString(5)%></th>
                 <th>
-                    <a href="compromisos.jsp?idReunion=<%=rs2.getInt("ID_Reunion")%>&agregar=noo">
-                        <img src="Iconos/compromisos.png" width="30" heigth="30">
+                    <a href="ServletReunion?accion=pendiente&idCompromiso=<%=rs4.getInt(1)%>">
+                        <img src="Iconos/pendiente.png" width="30" heigth="30">
+                    </a>
+                    <a href="ServletReunion?accion=realizado&idCompromiso=<%=rs4.getInt(1)%>">
+                        <img src="Iconos/activar.png" width="30" heigth="30">
                     </a>
                 </th>
             </tr>
-            <%}
-                    }
+            <%
                 }
-                rs.close();
-                rs2.close();
-                rs3.close();
-cnxr.close();
+                rs1.close();
+                rs4.close();
+                cnxr.close();
             %>
         </table>
     <center>

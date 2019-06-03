@@ -1,8 +1,8 @@
-<%@page import="Utils.ConexionBD"%>
+<%@page import="Utils.ConexionBDReunion"%>
 <%@page import="java.sql.PreparedStatement"%>
+<%@page import="Utils.ConexionBD"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="UsuarioBEANS.Reuniones"%>
 <%
     String usu = "";
     String usuu = "";
@@ -21,8 +21,7 @@
         ResultSet rs = sta.executeQuery();
         if (rs.next()) {
             usuu = rs.getString("nombre");
-        }
-rs.close();
+        }rs.close();
     }
 %>
 
@@ -33,42 +32,41 @@ rs.close();
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" href="Iconos/logo.png">
         <link href="estilos.css" rel="stylesheet" type="text/css">
-        <link href="estilos3.css" rel="stylesheet" type="text/css">
         <title>Meeting Office</title>
     </head>
     <body background="Iconos/fondo1.png">
-    <inse>ACTA</inse>
-    <form class="bax">
-        <img src="Iconos/crearReunion.png" width="100" height="100">
-    </form>
-
-    <form action="ServletActas" method="get" target="_blank" class="reunion">
+    <inse>NUEVO COMPROMISO</inse>
         <%
             int idReunion = Integer.parseInt(request.getParameter("idR"));
-            Connection cnxr = ConexionBD.getConexion();
-            PreparedStatement sta = cnxr.prepareStatement("select * from reunion where ID_Reunion=?");
-            sta.setInt(1, idReunion);
-            ResultSet rs = sta.executeQuery();
-            while (rs.next()) {
         %>
-
-        <font color="white">Comentarios</font><input type="text" name="txtComentariosReunion" required="">
-
-        <input type="submit" name="btnl" value="Generar Acta">
-        <a class="boton" href="principalReuniones.jsp">Finalizar</a>
-        <input type="hidden" name="idR" value="<%=idReunion%>">
-        <input type="hidden" name="accion" value="generarActa">
+    <form class="bax">
+        <img src="Iconos/anadir.png" width="100" height="100">
     </form>
     <a href="compromisos.jsp?idReunion=<%=idReunion%>&agregar=si">
         <regresarse>Regresar</regresarse>
     </a>
-    <%}
-
-        rs.close();
-cnxr.close();
-
-    %>
-
-
+    <br><br><br><br><br><br><br>
+    <form action="ServletReunion" class="reunion">
+        <input type="text" name="txtCompromiso" placeholder="Compromiso" required="">
+        <h2><font color="white">Responsable</font></h2>
+        <select name="responsable">
+            <%
+                Connection cnxr = ConexionBDReunion.getConexion();
+                PreparedStatement sta = cnxr.prepareStatement("select b.ID_Usuario,b.nombre from participantes a,usuarios b where "
+                        + "a.ID_Usuario = b.ID_Usuario and a.ID_Reunion =?");
+                sta.setInt(1, idReunion);
+                ResultSet rs = sta.executeQuery();
+                while (rs.next()) {
+            %>
+            <option value=<%=rs.getInt(1)%>><%=rs.getString(2)%></option>
+            <%
+                }
+                cnxr.close();
+            %>
+        </select>
+        <input type="submit" name="btnl" value="Agregar">
+        <input type="hidden" name="accion" value="compromiso">
+        <input type="hidden" name="idR" value=<%=idReunion%>>
+    </form>
 </body>
 </html>

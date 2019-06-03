@@ -20,7 +20,7 @@
         ResultSet rs = sta.executeQuery();
         if (rs.next()) {
             usuu = rs.getString("nombre");
-        }
+        }rs.close();
     }
 %>
 
@@ -58,8 +58,6 @@
                 ResultSet rs = cn.mostrarIDname();
                 while (rs.next()) {
                     ResultSet rs1 = cn.participantesEstaReunion(idReunion, rs.getInt("ID_Usuario"));
-
-
             %>
             <tr>
                 <th><font   color="black"><%=rs.getInt("ID_Usuario")%></font></th>

@@ -21,7 +21,7 @@
         ResultSet rs = sta.executeQuery();
         if (rs.next()) {
             usuu = rs.getString("nombre");
-        }
+        }rs.close();
     }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -66,6 +66,7 @@
             <%
                 }
                 rs.close();
+
             %>
         </select>
         <input type="submit" name="btnl" value="Crear Reunion">

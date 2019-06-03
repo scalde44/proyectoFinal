@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteReunion" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="77"/>
+	<parameter name="idR" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\steve\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoIntegrador_1\\web\\WEB-INF\\actas\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select *
+from reunion a,lugar b
+where id_reunion = $P{idR} and a.ID_Lugar=b.ID_Lugar]]>
+	</queryString>
+	<field name="ID_Reunion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="coordinadorReunion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombreReunion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_Lugar" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="objetivosReunion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaReunion" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horaReunion" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estadoReunion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombreLugar" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="105" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="193" y="0" width="171" height="35" backcolor="#F0F0F0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="20" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ACTA REUNIÓN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="178" y="35" width="202" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreReunion}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center">
+				<reportElement x="0" y="0" width="113" height="104"/>
+				<imageExpression class="java.lang.String"><![CDATA["C:\\Users\\steve\\OneDrive\\Escritorio\\Universidad Steven\\4 SEMESTRE\\Proyecto integrador I\\logo.PNG"]]></imageExpression>
+			</image>
+			<image hAlign="Center">
+				<reportElement x="434" y="0" width="121" height="104"/>
+				<imageExpression class="java.lang.String"><![CDATA["C:\\Users\\steve\\OneDrive\\Escritorio\\Universidad Steven\\4 SEMESTRE\\Proyecto integrador I\\logousb.jpeg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="0" y="104" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="114" y="0" width="1" height="104"/>
+			</line>
+			<line>
+				<reportElement x="448" y="1" width="1" height="104"/>
+			</line>
+			<line>
+				<reportElement x="115" y="66" width="334" height="1"/>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="193" y="66" width="171" height="35" backcolor="#F0F0F0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="20" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Meeting Office]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="45" splitType="Stretch">
+			<subreport>
+				<reportElement x="38" y="3" width="40" height="42"/>
+				<subreportParameter name="idReunion">
+					<subreportParameterExpression><![CDATA[$P{idR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "reporteParticipantes.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="40" width="78" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Id Reunión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="40" width="73" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Coordinador Reunión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="41" width="72" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Objetivos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="41" width="68" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="40" width="79" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="10" width="554" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="219" y="11" width="113" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos Reunión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="449" y="40" width="81" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Lugar]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="71" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="2" width="78" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{ID_Reunion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="78" y="2" width="100" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{coordinadorReunion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="178" y="2" width="72" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{objetivosReunion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="264" y="0" width="68" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{fechaReunion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="355" y="2" width="79" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.sql.Time"><![CDATA[$F{horaReunion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="449" y="2" width="81" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreLugar}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="-13" y="40" width="51" height="31"/>
+				<subreportParameter name="idReunion">
+					<subreportParameterExpression><![CDATA[$P{idR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "reporteCompromisos.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="1" y="40" width="554" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="16" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="6" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="89" splitType="Stretch">
+			<line>
+				<reportElement x="208" y="58" width="138" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="206" y="58" width="138" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{coordinadorReunion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="208" y="12" width="138" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma coordinador]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="11" width="554" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

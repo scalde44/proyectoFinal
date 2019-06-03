@@ -24,6 +24,7 @@
         if (rs.next()) {
             usuu = rs.getString("nombre");
         }
+        rs.close();
     }
 %>
 <html>
@@ -66,9 +67,19 @@
                     </a><p>Subir archivos</p>
                 </th>
                 <th>
+                    <a href="listaArchivos.jsp">
+                        <img src="Iconos/subirArchivo.png" width="70" height="70">
+                    </a><p>Buscar archivos</p>
+                </th>
+                <th>
                     <a href="reunionesInvitado.jsp">
                         <img src="Iconos/listaReuniones.png" width="70" height="70">
                     </a><p>Lista invitaciones</p>
+                </th>
+                <th>
+                    <a href="listaCompromisos.jsp">
+                        <img src="Iconos/listac.png" width="70" height="70">
+                    </a><p>Mis compromisos</p>
                 </th>
             </tr>
         </table>

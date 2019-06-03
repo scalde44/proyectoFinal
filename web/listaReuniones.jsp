@@ -21,7 +21,7 @@
         ResultSet rs = sta.executeQuery();
         if (rs.next()) {
             usuu = rs.getString("nombre");
-        }
+        }rs.close();
     }
 %>
 
@@ -39,7 +39,7 @@
         <h3>REUNIONES</h3>
 
         <br><br><br><br><br><br>
-        <table border="1"  align="center">
+        <table border="1"  align="center" >
             <tr bgcolor="gray">
                 <th><font   color="black">ID reunion</font></th>
                 <th><font   color="black">Coordinador</font></th>
@@ -50,6 +50,7 @@
                 <th><font color="black">Hora</font></th>
                 <th><font color="black">Estado</font></th>
                 <th><font color="black">Invitados</font></th>
+                <th><font color="black">Compromisos</font></th>
                 <th><font color="black">Accion</font></th>
                 <th><font color="black">Iniciar</font></th>
             </tr>
@@ -81,6 +82,11 @@
                     <%}%>
                 </th>
                 <th>
+                    <a href="compromisos.jsp?idReunion=<%=r.getID_Reunion()%>&agregar=no">
+                        <img src="Iconos/compromisos.png" width="30" heigth="30">
+                    </a>
+                </th>
+                <th>
                     <a href="ServletReunion?accion=desactivarReunion&idReunion=<%=r.getID_Reunion()%>&usuario=<%=usuu%>">
                         <img src="Iconos/desactivar.png" width="30" heigth="30">
                     </a>
@@ -88,9 +94,10 @@
                         <img src="Iconos/activar.png" width="30" heigth="30">
                     </a>
                 </th>
+                
                 <th>
                     <%if (r.getEstado().equalsIgnoreCase("Activa")) {%>
-                    <a href="asistenciaReunion.jsp?idReunion=<%=r.getID_Reunion()%>">
+                    <a href="compromisos.jsp?idReunion=<%=r.getID_Reunion()%>&agregar=si">
                         <img src="Iconos/iniciar.png" width="30" heigth="30">
                     </a>
                     <%} else {%>
@@ -104,7 +111,9 @@
                     }
 
                     rs.close();
+
                 }
+
             %>
         </table>
     <center>

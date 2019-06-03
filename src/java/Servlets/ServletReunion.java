@@ -64,76 +64,7 @@ public class ServletReunion extends HttpServlet {
     // Acta
     private XWPFDocument document = new XWPFDocument();
 
-    public int generarActa(int idReunion, String nombreReunion, String asis[], String lugar, String objetivos, String fecha, String hora, String comentarios) {
-        int salida = 0;
-        String direccion = "C:\\Users\\steve\\OneDrive\\Escritorio\\Archivos\\";
-
-        try {
-            File ruta = new File(direccion + nombreReunion + ".docx");
-            OutputStream output = new FileOutputStream(ruta);
-
-            XWPFParagraph paragraphTitulo = document.createParagraph();
-            XWPFRun runTitulo = paragraphTitulo.createRun();
-            paragraphTitulo.setAlignment(ParagraphAlignment.CENTER);
-            runTitulo.setBold(true);
-            runTitulo.setFontSize(14);
-            runTitulo.setUnderline(UnderlinePatterns.WORDS);
-            runTitulo.setText(nombreReunion);
-            runTitulo.setColor("2f66f2");
-            runTitulo.addBreak();
-            XWPFParagraph paragraph = document.createParagraph();
-            XWPFRun run = paragraph.createRun();
-
-            for (int i = 0; i < asis.length; i++) {
-                XWPFParagraph paragraphLista = document.createParagraph();
-                XWPFRun runLista = paragraphLista.createRun();
-                runLista.setText(asis[i]);
-                paragraphLista.setNumID(BigInteger.ONE);
-                runLista.addBreak();
-            }
-            run.setText("Id " + idReunion);
-            run.addBreak();
-            run.setText("Lugar " + lugar);
-            run.addBreak();
-            run.setText("Fecha " + fecha);
-            run.addBreak();
-            run.setText("Hora " + hora);
-            run.addBreak();
-            document.write(output);
-            output.close();
-            try {
-                MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
-                String mimeType = mimeTypesMap.getContentType(direccion + nombreReunion + ".docx");
-                mimeType = mimeTypesMap.getContentType(ruta);
-                long tamano = ruta.length() / 1024;
-                String tamanoArchivo = Long.toString(tamano) + " KB";
-                Connection cn = ConexionBD.getConexion();
-                PreparedStatement sta = cn.prepareStatement("insert into archivo(nombreArchivo,direccionArchivo,tipoArchivo,tamanoArchivo)"
-                        + "values(?,?,?,?)");
-                sta.setString(1, nombreReunion + ".docx");
-                sta.setString(2, ruta.getAbsolutePath());
-                sta.setString(3, mimeType);
-                sta.setString(4, tamanoArchivo);
-                sta.executeUpdate();
-            } catch (SQLException ex) {
-            }
-            try {
-                Connection cn = ConexionBD.getConexion();
-                PreparedStatement sta1 = cn.prepareStatement("select * from archivo where nombreArchivo=?");
-                sta1.setString(1, nombreReunion + ".docx");
-                ResultSet rs = sta1.executeQuery();
-                if (rs.next()) {
-                    salida = Integer.parseInt(rs.getString(1));
-                }
-            } catch (SQLException ex) {
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return salida;
-    }
 //
-
     public ResultSet mostrarLugar(int id) throws SQLException {
         Connection cnxr = ConexionBD.getConexion();
 
@@ -300,7 +231,29 @@ public class ServletReunion extends HttpServlet {
                 request.getRequestDispatcher("ServletReunion?accion=listar&usuario=" + coordinador + "").forward(request, response);
             } catch (Exception e) {
             }
-        } else if (accion.equalsIgnoreCase("vincularParticipante")) {
+        } else if (accion.equalsIgnoreCase("pendiente")) {
+            int idCompromiso = Integer.parseInt(request.getParameter("idCompromiso"));
+            String estado = "Pendiente";
+            try {
+                PreparedStatement staEl = cnxr.prepareStatement("update compromisosReunion set estado=? where ID_Compromisos=?");
+                staEl.setString(1, estado);
+                staEl.setInt(2, idCompromiso);
+                staEl.executeUpdate();
+                request.getRequestDispatcher("listaCompromisos.jsp").forward(request, response);
+            } catch (Exception e) {
+            }
+        }else if (accion.equalsIgnoreCase("realizado")) {
+            int idCompromiso = Integer.parseInt(request.getParameter("idCompromiso"));
+            String estado = "Realizado";
+            try {
+                PreparedStatement staEl = cnxr.prepareStatement("update compromisosReunion set estado=? where ID_Compromisos=?");
+                staEl.setString(1, estado);
+                staEl.setInt(2, idCompromiso);
+                staEl.executeUpdate();
+                request.getRequestDispatcher("listaCompromisos.jsp").forward(request, response);
+            } catch (Exception e) {
+            }
+        }else if (accion.equalsIgnoreCase("vincularParticipante")) {
 
             int idReunion = Integer.parseInt(request.getParameter("idReunion"));
             int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
@@ -369,39 +322,28 @@ public class ServletReunion extends HttpServlet {
                 request.setAttribute("msg", "Usuario No vinculado todavia");
                 request.getRequestDispatcher("participantes.jsp?idReunion=" + idReunion + "&nombre=" + nomReunion + "&lugar=" + lugarR + "&fecha=" + fechaR + "&hora=" + horaR + "&objetivos=" + objetivosR).forward(request, response);
             }
-        } else if (accion.equalsIgnoreCase("generarActa")) {
+        } else if (accion.equalsIgnoreCase("compromiso")) {
+            int idReunion = Integer.parseInt(request.getParameter("idR"));
+            String compromiso = request.getParameter("txtCompromiso");
+            int idUsuario = Integer.parseInt(request.getParameter("responsable"));
+            String estado = "Pendiente";
             try {
-                int idReunion = Integer.parseInt(request.getParameter("idR"));
-                String asistentes[] = request.getParameterValues("asistentes");
-                String comentarios = request.getParameter("txtComentariosReunion");
-                PreparedStatement sta = cnxr.prepareStatement("select * from reunion where ID_Reunion=?");
-                sta.setInt(1, idReunion);
-                ResultSet rs = sta.executeQuery();
-                if (rs.next()) {
-
-                    int idd = generarActa(idReunion, rs.getString("nombreReunion"), asistentes,
-                            "Lugar", rs.getString("objetivosReunion"), rs.getString("fechaReunion"), rs.getString("horaReunion"), comentarios);
-                    for (int i = 0; i < asistentes.length; i++) {
-                        PreparedStatement sta1 = cnxr.prepareStatement("insert into palabrasClaves (palabraClave,ID_Archivo) values (?,?)");
-                        sta1.setString(1, asistentes[i]);
-                        sta1.setInt(2, idd);
-                        sta1.executeUpdate();
-
-                    }
-
-                }
-                PreparedStatement staEl = cnxr.prepareStatement("update reunion set estadoReunion=? where ID_Reunion=?");
-                staEl.setString(1, "Inactiva");
-                staEl.setInt(2, idReunion);
-                staEl.executeUpdate();
-                request.setAttribute("msg", "Acta generada");
-                request.getRequestDispatcher("principalReuniones.jsp").forward(request, response);
-
-            } catch (Exception e) {
+                PreparedStatement sta = cnxr.prepareStatement("insert into compromisosReunion(compromiso,ID_Usuario,ID_Reunion,estado)"
+                        + "values(?,?,?,?)");
+                sta.setString(1, compromiso);
+                sta.setInt(2, idUsuario);
+                sta.setInt(3, idReunion);
+                sta.setString(4, estado);
+                sta.executeUpdate();
+                request.setAttribute("msg", "Compromiso agregado");
+                request.getRequestDispatcher("compromisos.jsp?idReunion=" + idReunion+"&agregar=si").forward(request, response);
+            } catch (SQLException e) {
                 request.setAttribute("msg", e);
-                request.getRequestDispatcher("principalReuniones.jsp").forward(request, response);
+                request.getRequestDispatcher("compromisos.jsp?idReunion=" + idReunion+"&agregar=si").forward(request, response);
             }
+
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

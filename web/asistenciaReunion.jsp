@@ -21,7 +21,7 @@
         ResultSet rs = sta.executeQuery();
         if (rs.next()) {
             usuu = rs.getString("nombre");
-        }
+        }rs.close();
     }
 %>
 
@@ -70,6 +70,7 @@
                 <%}
                     }
                     rs.close();
+cnxr.close();
                 %>
 
             </table>

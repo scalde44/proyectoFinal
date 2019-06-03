@@ -5,16 +5,17 @@
  */
 package Servlets;
 
+import UsuarioBEANS.Archivo;
 import Utils.ConexionBD;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -46,17 +47,29 @@ public class ServletArchivos extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletArchivos</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletArchivos at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try {
+            Connection cn = ConexionBD.getConexion();
+            String accion1 = request.getParameter("accion1");
+            if (accion1.equalsIgnoreCase("abrir")) {
+                String nombre = request.getParameter("nombre");
+
+                try {
+
+                    File objetofile = new File("C:\\Users\\steve\\OneDrive\\Escritorio\\Archivos\\" + nombre);
+                    Desktop.getDesktop().open(objetofile);
+
+                } catch (IOException ex) {
+
+                    System.out.println(ex);
+
+                }
+                request.setAttribute("msg1", "Archivo abierto");
+                request.getRequestDispatcher("listaArchivos.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            request.setAttribute("msg1", e.getMessage());
+            request.getRequestDispatcher("buscarArchivo.jsp").forward(request, response);
+
         }
     }
 
@@ -107,31 +120,21 @@ public class ServletArchivos extends HttpServlet {
                     upBean.setFolderstore(direccion);
                     nombreArchivo = file.getFileName();
                     tipoArchivo = file.getContentType();
-                    long tamano=file.getFileSize()/1024;
-                    tamanoArchivo = Long.toString(tamano)+" KB";
+                    long tamano = file.getFileSize() / 1024;
+                    tamanoArchivo = Long.toString(tamano) + " KB";
                     crearArchivo = new File(direccion + nombreArchivo);
-                    
-
+                    String n = nombreArchivo.substring(0, nombreArchivo.lastIndexOf('.'));
                     upBean.store(mrequest, "archivoSubido");
 
-                    try {
-                        PreparedStatement sta = cn.prepareStatement("insert into archivo(nombreArchivo,direccionArchivo,tipoArchivo,tamanoArchivo)"
-                                + "values(?,?,?,?)");
-                        sta.setString(1, nombreArchivo);
-                        sta.setString(2, direccion + nombreArchivo);
-                        sta.setString(3, tipoArchivo);
-                        sta.setString(4, tamanoArchivo);
-                        sta.executeUpdate();
-                    } catch (SQLException ex) {
-                        request.setAttribute("msg1", ex);
-                        request.getRequestDispatcher("subirArchivo.jsp").forward(request, response);
-                    }
                     request.setAttribute("msg1", "El archivo: " + nombreArchivo + " ha sido subido exitosamente");
                     request.getRequestDispatcher("subirArchivo.jsp").forward(request, response);
+
                 }
 
             }
         } catch (UploadException ex) {
+            request.setAttribute("msg1", "Archivo no encontrado");
+            request.getRequestDispatcher("buscarArchivo.jsp").forward(request, response);
 
         }
     }
