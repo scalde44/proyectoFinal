@@ -19,6 +19,8 @@
         
         <link rel="shortcut icon" href="Iconos/logo.png">
         <link href="estilos.css" rel="stylesheet" type="text/css">
+        
+        <link href="estilos2.css" rel="stylesheet" type="text/css">
         <title>Meeting Office</title>
     </head>
    <body background="Iconos/fondo1.png">
@@ -30,7 +32,7 @@
         <form action="ServletMantenimiento" class="consulta">
             
             <h2>Ingrese Correo:</h2> 
-                <input type="email" name="txtCorreo">
+                <input type="text" name="txtCorreo">
                 <input type="submit" name="bntl" value="Consultar">
                 <input type="hidden" name="accion" value="consultarAdmin">
             

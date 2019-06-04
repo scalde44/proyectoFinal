@@ -21,7 +21,8 @@
         ResultSet rs = sta.executeQuery();
         if (rs.next()) {
             usuu = rs.getString("nombre");
-        }rs.close();
+        }
+        rs.close();
     }
 %>
 
@@ -33,13 +34,67 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" href="Iconos/logo.png">
         <link href="estilos.css" rel="stylesheet" type="text/css">
+
+        <script type="text/javascript" src="pager.js"></script>
         <title>Meeting Office</title>
+        <style type="text/css">
+            .pg-normal {
+                color: black;
+                font-weight: normal;
+                text-decoration: none;
+                cursor: pointer;
+                font-family:    'Lucida Grande',Verdana,Arial,Sans-Serif;
+                font-size:10px
+            }
+            .pg-selected {
+                color: black;
+                font-weight: bold;
+                text-decoration: underline;
+                cursor: pointer;
+                font-family:    'Lucida Grande',Verdana,Arial,Sans-Serif;
+                font-size:10px
+            }
+            #myInput {
+                width: 400px; /* Full-width */
+                font-size: 16px; /* Increase font-size */
+                padding: 12px 20px 12px 40px; /* Add some padding */
+                border: 1px solid #ddd; /* Add a grey border */
+                margin-bottom: 12px; /* Add some space below the input */
+                text-align: center;
+            }
+        </style>
+        <script>
+            function myFunction() {
+                // Declare variables 
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("results");
+                tr = table.getElementsByTagName("tr");
+
+                // Loop through all table rows, and hide those who don't match the search query
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
     </head>
     <body background="Iconos/fondo1.png">
         <h3>REUNIONES</h3>
 
-        <br><br><br><br><br><br>
-        <table border="1"  align="center" >
+        <br><br><br><br><br><br><br><br>
+    <center>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Busca por nombre">
+    </center>
+        <table border="1"  align="center" id="results">
             <tr bgcolor="gray">
                 <th><font   color="black">ID reunion</font></th>
                 <th><font   color="black">Coordinador</font></th>
@@ -66,7 +121,7 @@
             <tr>
                 <th><%=r.getID_Reunion()%></th>
                 <th><%=r.getCoordinadorReunion()%></th>
-                <th><%=r.getNombreReunion()%></th>
+                <td><%=r.getNombreReunion()%></td>
                 <th><%=r.getID_Lugar()%></th>
                 <th><%=r.getObjetivosReunion()%></th>
                 <th><%=r.getFechaReunion()%></th>
@@ -94,7 +149,7 @@
                         <img src="Iconos/activar.png" width="30" heigth="30">
                     </a>
                 </th>
-                
+
                 <th>
                     <%if (r.getEstado().equalsIgnoreCase("Activa")) {%>
                     <a href="compromisos.jsp?idReunion=<%=r.getID_Reunion()%>&agregar=si">
@@ -116,6 +171,14 @@
 
             %>
         </table>
+        <div id="pageNavPosition"></div>
+        <script type="text/javascript">
+            var pager = new Pager('results', 5);
+            pager.init();
+            pager.showPageNav('pager', 'pageNavPosition');
+            pager.showPage(1);
+
+        </script>
     <center>
         <a href="principalReuniones.jsp">
             <regresar>Regresar</regresar>
