@@ -252,7 +252,21 @@ public class ServletMantenimiento extends HttpServlet {
                 request.setAttribute("msg", "El nivel de las contraseñas es malo");
                 request.getRequestDispatcher("nuevo.jsp").forward(request, response);
             }
-        }}
+        }}else if(accion.equalsIgnoreCase("lugar")){
+            
+            String nombre = request.getParameter("txtLugar");
+            try{
+                PreparedStatement sta= cnx.prepareStatement("insert into lugar(nombreLugar) values(?)");
+                sta.setString(1, nombre);
+                sta.executeUpdate();
+                
+                request.setAttribute("msg", "Lugar añadido");
+                request.getRequestDispatcher("principal.jsp").forward(request, response);
+            }catch(Exception e){
+                request.setAttribute("msg", e);
+                request.getRequestDispatcher("nuevoLugar.jsp").forward(request, response);
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -83,6 +83,13 @@
                     </a><p>Insertar administrador</p>
                 </th>
             </tr>
+            <tr>
+                <th colspan="2">
+                    <a href="nuevoLugar.jsp">
+                        <img src="Iconos/anadir.png" width="70" height="70">
+                    </a><p>Insertar lugar</p>
+                </th>
+            </tr>
         </table>
         <br>
         

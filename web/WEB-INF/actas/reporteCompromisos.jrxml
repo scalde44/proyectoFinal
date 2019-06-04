@@ -5,52 +5,17 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="idReunion" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from reunion a,compromisosReunion b, usuarios c
-where a.ID_Reunion=$P{idReunion} and b.ID_Usuario=c.ID_Usuario]]>
+		<![CDATA[select b.compromiso,c.nombre,b.ID_Reunion from reunion a,compromisosReunion b, usuarios c
+where a.ID_Reunion=$P{idReunion} and b.ID_Usuario=c.ID_Usuario
+and a.ID_Reunion=b.ID_Reunion]]>
 	</queryString>
-	<field name="ID_Reunion" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="coordinadorReunion" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="nombreReunion" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ID_Lugar" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="objetivosReunion" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="fechaReunion" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="horaReunion" class="java.sql.Time">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="estadoReunion" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ID_Compromisos" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="compromiso" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ID_Usuario" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="estado" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="nombre" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="correo" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="contrasena" class="java.lang.String">
+	<field name="ID_Reunion" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>

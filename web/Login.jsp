@@ -9,7 +9,7 @@
         <title>Meeting Office</title>
     </head>
     <body background="Iconos/fondo1.png">
-
+        
         <h1>MEETING OFFICE</h1>
         <form class="bax">
             <img src="Iconos/logo.png">
